@@ -1,0 +1,4 @@
+result*
+guestbook-core/tests/harness
+guestbook-program/target/
+guestbook-program/build.log

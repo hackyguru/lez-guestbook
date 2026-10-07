@@ -1,0 +1,19 @@
+{
+  "name": "guestbook_core",
+  "version": "0.1.0",
+  "type": "core",
+  "interface": "universal",
+  "category": "blockchain",
+  "description": "Guestbook core — a guestbook on the Logos Execution Zone testnet that everyone shares (deployed program + embedded wallet)",
+  "codegen": {
+    "impl_header": "src/guestbook_impl.h",
+    "impl_class": "GuestbookImpl"
+  },
+  "main": "guestbook_core_plugin",
+  "dependencies": [],
+  "nix": {
+    "packages": { "build": [], "runtime": ["nlohmann_json"] },
+    "external_libraries": [ { "name": "wallet_ffi" } ],
+    "cmake": { "find_packages": [], "extra_sources": [], "extra_include_dirs": [], "extra_link_libraries": [] }
+  }
+}
