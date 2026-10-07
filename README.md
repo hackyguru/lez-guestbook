@@ -1,29 +1,58 @@
+<div align="center">
+
+<img src="guestbook-ui/icons/guestbook.png" alt="LEZ Guestbook logo" width="128" height="128">
+
 # LEZ Guestbook
 
-A guestbook on the Logos Execution Zone that everyone shares. Sign it with a
-name and a message; anyone with the module, on any machine, sees the same
-book. It's one step up from the [counter](https://github.com/hackyguru/lez-counter): variable-size
-records, signed authors, one account per entry, and two people writing at
-the same moment.
+**A guestbook on the Logos Execution Zone that everyone shares.**
 
-```
-lez-guestbook/
-├── guestbook-program/  the on-chain program (Rust → risc0 guest), build.sh, guestbook.bin
-├── guestbook-core/     guestbook_core — universal C++ module, links the LEZ wallet FFI
-│   └── tests/          harness: deploy / use / post / state against the testnet
-├── guestbook-ui/       guestbook — QML (compose, signatures, details)
-├── verify.sh           read the book straight from the chain with curl + python3
-└── install.sh          drop both into a local Basecamp
-```
+A community-built, **unofficial** [Logos Basecamp](https://logos.co) module.
+Sign it with a name and a message; anyone with the module, on any machine, sees
+the same book. It's one step up from
+[LEZ Counter](https://github.com/hackyguru/lez-counter): variable-size records,
+signed authors, one account per entry, and two people writing at the same
+moment.
 
-## Download
+![Basecamp](https://img.shields.io/badge/Logos%20Basecamp-0.2.3-2e7d5b)
+![Network](https://img.shields.io/badge/network-LEZ%20testnet%20v0.3-6f42c1)
+![Platform](https://img.shields.io/badge/platform-macOS%20arm64%20%7C%20Linux%20x86__64-lightgrey)
+![Status](https://img.shields.io/badge/status-experimental-orange)
+![Unofficial](https://img.shields.io/badge/module-unofficial-red)
 
-Grab `logos-guestbook_core-module-lib.lgx` and `logos-guestbook-module.lgx` from the
-[latest release](https://github.com/hackyguru/lez-guestbook/releases/latest). Each holds
-both macOS (Apple Silicon) and Linux (x86_64) builds. In Basecamp, open
-**Modules → Install LGX Package** and install the core first, then the UI.
-Releases are built by [`.github/workflows/release.yml`](.github/workflows/release.yml)
-when a `v*` tag is pushed.
+</div>
+
+> [!WARNING]
+> **Unofficial, experimental, testnet only.** This is not an official Logos
+> module and is not affiliated with or endorsed by Logos or IFT. It talks to
+> the public LEZ v0.3 testnet, whose LGO has no value and which can be reset at
+> any time. Entries are public and permanent: there is no moderation and
+> nothing can be deleted.
+
+---
+
+## Contents
+
+- [Quick start](#quick-start)
+- [Live deployment](#live-deployment)
+- [How it works](#how-it-works)
+- [Build from source](#build-from-source)
+- [Verifying it independently](#verifying-it-independently)
+
+## Quick start
+
+1. Download `logos-guestbook_core-module-lib.lgx` and `logos-guestbook-module.lgx`
+   from the [latest release](https://github.com/hackyguru/lez-guestbook/releases/latest).
+   Each holds both macOS (Apple Silicon) and Linux (x86_64) builds.
+2. In Basecamp, open **Modules → Install LGX Package** and install the core
+   first, then the UI.
+3. Open **guestbook** in the sidebar, write a name and a message, and sign.
+   The module fetches the LGO it needs for fees from the testnet faucet by
+   itself, so there's nothing to configure.
+
+The packages contain the program address, so everyone who installs them reads
+and signs the same book. Releases are built by
+[`.github/workflows/release.yml`](.github/workflows/release.yml) whenever a
+`v*` tag is pushed.
 
 ## Live deployment
 
@@ -74,7 +103,18 @@ on an entry is the poster's clock, unverified (fine for a guestbook).
 for an event, a moderated version would add an owner key that can mark
 entries hidden (the UI hides them; the chain still has them).
 
-## Build, deploy, install
+## Build from source
+
+```
+lez-guestbook/
+├── guestbook-program/  the on-chain program (Rust → risc0 guest), build.sh, guestbook.bin
+├── guestbook-core/     guestbook_core — universal C++ module, links the LEZ wallet FFI
+│   └── tests/          harness: deploy / use / post / state against the testnet
+├── guestbook-ui/       guestbook — QML (compose, signatures, details)
+├── verify.sh           read the book straight from the chain with curl + python3
+└── install.sh          drop both into a local Basecamp
+```
+
 
 ```bash
 cd guestbook-program && ./build.sh       # Docker running; → guestbook.bin
@@ -86,5 +126,17 @@ cd ../guestbook-ui && nix build 'path:.#lgx-portable' -o result-portable --overr
 cd .. && ./install.sh
 ```
 
-Sharing, cross-machine checks and the testnet-reset caveats are the same as
-for the counter. See [LEZ Counter's README](https://github.com/hackyguru/lez-counter#readme).
+The UI pins its core to this repo on GitHub; the `--override-input` above
+builds it against your checkout instead.
+
+## Verifying it independently
+
+`./verify.sh` reads the book straight from the testnet sequencer: no Basecamp,
+no module, no wallet. It derives every entry's account address itself and
+decodes the newest ten, so if the module and the script agree, the entries
+really are on the chain.
+
+Testnet resets wipe deployed programs. Redeploy (above), then update
+`kDefaultProgram` in `guestbook-core/src/guestbook_impl.cpp` or use the
+module's Details view. The build and deploy gotchas are the same as for the
+counter; see [LEZ Counter's README](https://github.com/hackyguru/lez-counter#things-that-bit-so-you-dont-have-to).
