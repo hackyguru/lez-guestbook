@@ -22,11 +22,11 @@ namespace fs = std::filesystem;
 
 namespace {
 
-// The guestbook program on the LEZ v0.3 public testnet, deployed 2026-10-04
+// The guestbook program on the LEZ v0.3 public testnet, redeployed 2026-10-15
 // from guestbook-program/guestbook.bin (image id 00e8aa77…). After a testnet
 // reset, redeploy (tests/run.sh deploy) and update this, or use setProgram() /
 // the UI's Details.
-constexpr const char* kDefaultProgram = "Edc6RDHB6bjCUfseKfff7jkhEwWqDHuBieWpE2YiyHq";
+constexpr const char* kDefaultProgram = "9g3esWieKeD886uvSKdoH7AntwoAMiiTKWinZXMoYzz5";
 
 // The testnet's shared faucet: a genesis account whose key is public on
 // purpose (`PRIVATE_KEY_PUB_ACC_B` in lez/testnet_initial_state).

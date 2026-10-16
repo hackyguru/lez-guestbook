@@ -4,8 +4,8 @@
 #   ./verify.sh          print the signature count and the newest 10 entries
 set -euo pipefail
 SEQ="${SEQ:-https://testnet.lez.logos.co}"
-PROGRAM="${PROGRAM:-Edc6RDHB6bjCUfseKfff7jkhEwWqDHuBieWpE2YiyHq}"
-HEADER="${HEADER:-DkshwcR5xRf4bFvmugbBxt8P5rCzVvyUmJVHs9LPmEjp}"
+PROGRAM="${PROGRAM:-9g3esWieKeD886uvSKdoH7AntwoAMiiTKWinZXMoYzz5}"
+HEADER="${HEADER:-C4qKMDDbsQE3pGBbJBaM3r5LTa7rxbAP6vwGfnLR1ewQ}"
 
 python3 - "$SEQ" "$PROGRAM" "$HEADER" <<'PY'
 import hashlib, json, sys, urllib.request
@@ -33,7 +33,7 @@ def entry_account(i):
     return b58e(hashlib.sha256(PREFIX + b58d(program) + seed).digest())
 h = shard(header)
 count = int.from_bytes(h, 'little') if h else 0
-print(f"{count} signatures   (program {program})")
+print(f"{count} signature{'' if count == 1 else 's'}   (program {program})")
 for i in range(count - 1, max(-1, count - 11), -1):
     d = shard(entry_account(i)); at = 32
     def s():

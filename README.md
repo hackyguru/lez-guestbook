@@ -58,12 +58,12 @@ and signs the same book. Releases are built by
 
 | | |
 |---|---|
-| Program | `Edc6RDHB6bjCUfseKfff7jkhEwWqDHuBieWpE2YiyHq` |
-| Header account (signature count) | `DkshwcR5xRf4bFvmugbBxt8P5rCzVvyUmJVHs9LPmEjp` |
+| Program | `9g3esWieKeD886uvSKdoH7AntwoAMiiTKWinZXMoYzz5` |
+| Header account (signature count) | `C4qKMDDbsQE3pGBbJBaM3r5LTa7rxbAP6vwGfnLR1ewQ` |
 | Image ID | `00e8aa77af3c139951898a26f5c836a1450445ca917c55b164fbef950543df84` |
-| Deployed | 2026-10-04: 3 segments + header, ~6 min |
+| Deployed | 2026-10-15 (redeployed after a testnet reset): 3 segments + header, ~3 min |
 
-Verified with two separate wallets:
+The original 2026-10-04 deployment was verified with two separate wallets:
 - The deployer signed (#1).
 - A fresh wallet pointed at the address and signed (#2).
 - Then **both signed at the same moment**. One got slot #3. The other's

@@ -24,6 +24,8 @@ Item {
 
     readonly property bool ready: st.phase === "ready"
     readonly property var program: st.program || ({})
+    readonly property string customProgram: program.custom ? (program.address || "") : ""
+    onCustomProgramChanged: if (!programField.activeFocus) programField.text = customProgram
     readonly property var me: st.me || ({})
     readonly property var entries: st.entries || []
     readonly property var jobs: st.jobs || []
@@ -525,7 +527,9 @@ Item {
                         Layout.fillWidth: true
                         implicitHeight: 40
                         placeholderText: "Program address"
-                        text: root.program.custom ? root.program.address : ""
+                        // Not bound to root.program: state() is polled every
+                        // second, and a binding would wipe whatever is typed.
+                        Component.onCompleted: text = root.customProgram
                     }
                     LogosButton {
                         implicitWidth: 80

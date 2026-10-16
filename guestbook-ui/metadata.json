@@ -1,7 +1,7 @@
 {
   "name": "guestbook",
   "displayName": "Guestbook",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "ui_qml",
   "category": "blockchain",
   "description": "Guestbook — sign a guestbook on the Logos Execution Zone testnet that everyone shares",
